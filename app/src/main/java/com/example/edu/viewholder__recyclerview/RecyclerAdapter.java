@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -44,13 +45,23 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final MyViewHolder holder, int position) {
         HashMap<String, Object> hashMap = arrayList.get(position);
 
-        holder.itemImage.setImageResource((Integer)hashMap.get("image"));
+        /*holder.itemImage.setImageResource((Integer)hashMap.get("image"));
         holder.itemTitle.setText((String)hashMap.get("title"));
-        holder.itemImage.setImageResource((Integer)hashMap.get("image"));
+        holder.itemImage.setImageResource((Integer)hashMap.get("image"));*/
 
+        holder.itemImage.setImageResource((Integer)hashMap.get("image"));
+        holder.itemTitle.setText("0");
+        holder.itemTitle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Integer count = Integer.parseInt(((TextView)holder.itemTitle).getText().toString())+1;
+                ((TextView)holder.itemTitle).setText(count.toString());
+                Toast.makeText(view.getContext(), ((TextView)view).getText(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @Override
