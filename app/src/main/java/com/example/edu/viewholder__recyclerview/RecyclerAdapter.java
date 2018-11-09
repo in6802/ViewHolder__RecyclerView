@@ -1,5 +1,7 @@
 package com.example.edu.viewholder__recyclerview;
 
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.support.annotation.NonNull;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
@@ -10,7 +12,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.sql.SQLClientInfoException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyViewHolder> {
@@ -27,7 +31,23 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
         }
     }
 
+    //DB--------------------------------------------------------------------------
+    private SQLiteDatabase mdb;
+    public RecyclerAdapter(SQLiteDatabase db){
+        this.mdb = db;
+        String query = new StringBuilder().append("select...").toString();
+        Cursor cursor = mdb.rawQuery(query, null);
+        ArrayList<HashMap<String, Object>> arrayListTemp = new ArrayList<>();
+        HashMap<String, Object> hashMap = null;
+        while (cursor.moveToNext()) {
+            hashMap = new HashMap<String, Object>();
+            hashMap.put("itemTitle", cursor.getShort(0));
+            arrayList.add(hashMap);
+        }
+        this.arrayList = arrayListTemp;
+    }
 
+    //HASHMAP--------------------------------------------------------------------------
     ArrayList<HashMap<String, Object>> arrayList = null;
     public RecyclerAdapter(ArrayList<HashMap<String, Object>> arrayList){
         this.arrayList = new ArrayList<>();
@@ -60,6 +80,10 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
                 Integer count = Integer.parseInt(((TextView)holder.itemTitle).getText().toString())+1;
                 ((TextView)holder.itemTitle).setText(count.toString());
                 Toast.makeText(view.getContext(), ((TextView)view).getText(), Toast.LENGTH_SHORT).show();
+                Date date = new Date();
+
+                //DB 추가
+                //insertRecord(mdb, count, date);
             }
         });
     }
