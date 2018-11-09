@@ -35,6 +35,9 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
     private SQLiteDatabase mdb;
     public RecyclerAdapter(SQLiteDatabase db){
         this.mdb = db;
+        //
+        쿼리로
+                
         String query = new StringBuilder().append("select...").toString();
         Cursor cursor = mdb.rawQuery(query, null);
         ArrayList<HashMap<String, Object>> arrayListTemp = new ArrayList<>();
@@ -93,3 +96,12 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
         return arrayList.size();
     }
 }
+/*
+adapter -
+        값을 가지고 있고 뷰에 표시해줌
+
+        그러나 내부 데이터가 변경되면 알아차리지는 못함
+        그래서 함수 호출해줘야함.
+        notifyDataSetChanged();
+
+*/

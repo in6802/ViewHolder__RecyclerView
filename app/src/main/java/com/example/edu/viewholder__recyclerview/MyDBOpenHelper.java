@@ -25,8 +25,8 @@ public class MyDBOpenHelper extends SQLiteOpenHelper {
         for(int i=0; i<10; i++){
             db.execSQL("INSERT INTO awe_country VALUES( null, '" + "Country"+ i + "', '" + "Capital" + i + "');");
         }*/
-
-        db.execSQL("CREATE TABLE ITEM_TABLE (PKID INTEGER PRIMARY KEY AUTOINCREMENT, TITLE INTEGER, DETAIL TEXT);");
+        String query = "CREATE TABLE ITEM_TABLE (PKID INTEGER PRIMARY KEY AUTOINCREMENT, TITLE INTEGER, DETAIL TEXT)";
+        db.execSQL(query);
     }
 
     @Override
